@@ -1,6 +1,6 @@
 const express = require('express')
 const EHbs = require('express-handlebars')
-const fortune = require('./lib/fortune')
+const handlers = require('./lib/handlers')
 
 const app = express()
 
@@ -9,27 +9,24 @@ app.engine('handlebars', EHbs.engine({
 }))
 app.set('view engine', 'handlebars')
 
+/* eslint-disable no-undef */
 app.use(express.static(__dirname + '/public'))
 
 const port = process.env.PORT || 3000
+/* eslint-enable no-undef */
 
-app.get('/', (req, res) => res.render('home'))
+app.get('/', handlers.home)
+app.get('/about', handlers.about)
+// Пользовательская страница 404
+app.use(handlers.notFound)
+// Пользовательская страница 500
+app.use(handlers.serverError)
 
-app.get('/about', (req, res) => {
-  res.render('about', { fortune: fortune.getFortune() })
-})
-
-app.use((req, res) => {
-  res.status(404)
-  res.render('404')
-})
-
-app.use((err, req, res, next) => {
-  console.error(err.message)
-  res.status(500)
-  res.render('500')
+if(require.main === module) {
+  app.listen(port, () => {
+  console.log( `Express запущен на http://localhost:${port}` +
+    '; нажмите Ctrl+C для завершения.' )
   })
-
-app.listen(port, () => console.log(
-  `Express started in http://localhost:${port}; ` +
-  `Press Ctrl+C to exit` ))
+} else {
+  module.exports = app
+}
