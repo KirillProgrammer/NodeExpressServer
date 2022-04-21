@@ -6,6 +6,13 @@ const app = express()
 
 app.engine('handlebars', EHbs.engine({
   defaultLayout: 'main',
+  helpers: {
+    section: function(name, options) {
+      if(!this._section) this._section = {}
+      this._section[name] = options.fn(this)
+      return null
+    },
+  },
 }))
 app.set('view engine', 'handlebars')
 
@@ -24,6 +31,8 @@ app.get('/headers', (req, res) => {
   res.send(headers.join('\n'))
 })
 app.get('/greet', handlers.greeting)
+app.get('/jq', handlers.jq)
+app.get('/tasty', handlers.tasty)
 // Пользовательская страница 404
 app.use(handlers.notFound)
 // Пользовательская страница 500

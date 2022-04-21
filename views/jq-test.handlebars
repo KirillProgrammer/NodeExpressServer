@@ -1,0 +1,15 @@
+{{#section 'head'}}
+  <meta name="robots" content="noindex">
+{{/section}}
+
+<h1>Testing page</h1>
+<p>Testing something with scripts</p>
+
+{{#section 'scripts'}}
+  <script>
+    const div = document.createElement('div')
+    div.appendChild(document.createTextNode('(scripting works!)'))
+    document.querySelector('body').appendChild(div)
+  </script>
+{{/section}}
+
