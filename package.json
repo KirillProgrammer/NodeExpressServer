@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "node ./index.js",
+    "bb": "node ./ini.js",
     "test": "jest",
     "lint": "eslint index.js lib"
   },
@@ -12,8 +13,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
+    "cat-names": "^3.0.0",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.3",
-    "express-handlebars": "^6.0.5"
+    "express-handlebars": "^6.0.5",
+    "express-session": "^1.17.2"
   },
   "devDependencies": {
     "eslint": "^8.13.0",
