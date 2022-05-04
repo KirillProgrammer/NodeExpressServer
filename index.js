@@ -1,6 +1,7 @@
 const express = require('express')
 const EHbs = require('express-handlebars')
 const handlers = require('./lib/handlers')
+const bodyParser = require('body-parser')
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.engine('handlebars', EHbs.engine({
 }))
 app.set('view engine', 'handlebars')
 
+app.use(bodyParser.json())
 /* eslint-disable no-undef */
 app.use(express.static(__dirname + '/public'))
 
@@ -33,6 +35,11 @@ app.get('/headers', (req, res) => {
 app.get('/greet', handlers.greeting)
 app.get('/jq', handlers.jq)
 app.get('/tasty', handlers.tasty)
+app.get('/newsletter-signup', handlers.newsletterSignup)
+app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
+app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
+app.get('/newsletter', handlers.newsletter)
+app.post('/api/newsletter-signup', handlers.api.newsletterSignup)
 // Пользовательская страница 404
 app.use(handlers.notFound)
 // Пользовательская страница 500
