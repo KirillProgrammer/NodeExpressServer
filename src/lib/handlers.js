@@ -15,10 +15,11 @@ exports.greeting = (req, res) => {
 exports.jq = (req, res) => res.render('jq-test')
 exports.tasty = (req, res) => res.render('tasty')
 exports.notFound = (req, res) => res.render('404')
-// Это обработка формы отправленную именно из браузера. Потом рассмотрю обработку форму отправленной с помощью fetch api
+
 exports.newsletterSignup = (req, res) => {
   res.render('newsletter-signup', { csrf: "Здесь находится токен CSRF" })
 }
+
 exports.newsletterSignupProcess = (req, res) => {
   console.log('Форма (из строки запроса): ' + req.query.form)
   console.log('Токен CSRF (из скрытого поля формы): ' + req.body._csrf)
@@ -26,9 +27,11 @@ exports.newsletterSignupProcess = (req, res) => {
   console.log('E-mail (из видимого поля формы): ' + req.body.email)
   res.redirect(303, '/newsletter-signup/thank-you')
 }
+
 exports.newsletterSignupThankYou = (req, res) => {
   res.render('newsletter-signup-thank-you')
 }
+
 exports.newsletter = (req, res) => {
   // Мы изучим CSRF позже... сейчас мы лишь
   // вводим фиктивное значение.
@@ -42,8 +45,7 @@ exports.api = {
     res.send({ result: 'success' })
   },
 }
-// Express распознает обработчик ошибок по его четырем аргументам,
-// поэтому нам нужно отключить правило no-unused-vars в ESLint.
-/* eslint-disable no-unused-vars */
+
+exports.notFound = (req, res) => res.render('404')
+// eslint-disable-next-line no-unused-vars
 exports.serverError = (err, req, res, next) => res.render('500')
-/* eslint-enable no-unused-vars */
