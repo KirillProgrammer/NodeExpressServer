@@ -18,6 +18,7 @@ exports.App = class App {
 			},
 		}))
 		this.app.set('view engine', 'handlebars')
+		this.app.set('views', './src/views')
 		// this.app.use(bodyParser.urlencoded({ extended: true })) для обычной отправки форм
 		this.app.use(bodyParser.json()) // для отправки форм в json
 		/* eslint-disable no-undef */
