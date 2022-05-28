@@ -1,5 +1,5 @@
 const express = require('express')
-const router = require('./lib/Routing/router')
+const router = require('./lib/router')
 const EHbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
